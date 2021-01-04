@@ -7,10 +7,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.concurrent.Callable;
-import jreactive.ReactiveCallable;
-import jreactive.ReactiveFunction;
-import jreactive.ReactiveList;
-import jreactive.Reactivity;
 import org.junit.Test;
 
 
@@ -38,7 +34,7 @@ public class CollectionsTest {
 				int result = sumOfList.apply(list);
 			}
 		});
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run(); // one for the watch
 		list.add(3);
 		assertEquals(6, (int)sumOfList.apply(list)); // 1+2+3 =6
@@ -56,7 +52,7 @@ public class CollectionsTest {
 			return i;
 		});
 
-		Reactivity.watch(()-> {try {
+		JReactivity.watch(()-> {try {
 			System.out.println(reactiveAdder.call());
 		} catch (Exception e) {
 			e.printStackTrace();

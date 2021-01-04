@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import jreactive.ReactiveFunction;
 import jreactive.ReactiveProperty;
-import jreactive.Reactivity;
+import jreactive.JReactivity;
 public class DemoSwing {
 
 	private JTextField t1,t2,t3,t4,t5;
@@ -26,9 +26,9 @@ public class DemoSwing {
 		ReactiveFunction<Void, String> reactiveFunction = new ReactiveFunction<>((a)->getP1() + ":" + p2.get());
 		bindText(t4, reactiveFunction);
 
-		Reactivity.watch(()->t3.setText(getP1() + " " + getP2()));
+		JReactivity.watch(()->t3.setText(getP1() + " " + getP2()));
 
-		Reactivity.watch(()->{
+		JReactivity.watch(()->{
 			if(reactiveFunction.apply(null).length()>10)
 				t3.setBackground(Color.RED);
 			else
@@ -87,26 +87,26 @@ public class DemoSwing {
 	}
 
 	public void bindText(JTextField f, ReactiveProperty<String> p){
-		Reactivity.watch(()->SwingUtilities.invokeLater(()->f.setText(p.get())));
+		JReactivity.watch(()->SwingUtilities.invokeLater(()->f.setText(p.get())));
 		f.getDocument().addDocumentListener((SimpleDocumentListener) e->p.set(f.getText()));
 	}
 
 	private void bindText(JTextField f, ReactiveFunction<Void, String> rf) {
-		Reactivity.watch(()->{
+		JReactivity.watch(()->{
 			String t = rf.apply(null);
 			SwingUtilities.invokeLater(()->f.setText(t));
 		});
 	}
 
 	private void bindText(JTextField f, Function<Void, String> rf) {
-		Reactivity.watch(()->{
+		JReactivity.watch(()->{
 			String t = new ReactiveFunction<>(rf).apply(null);
 			SwingUtilities.invokeLater(()->f.setText(t));
 		});
 	}
 
 	private void bindBackground(JTextField f, Function<Void, Color> rf) {
-		Reactivity.watch(()->{
+		JReactivity.watch(()->{
 			Color c = new ReactiveFunction<>(rf).apply(null);
 			SwingUtilities.invokeLater(()->f.setBackground(c));
 		});

@@ -1,7 +1,5 @@
 package jreactive;
 
-import jreactive.ReactiveProperty;
-
 class ReactiveTestPojo{
 	public ReactiveTestPojo() {
 	}

@@ -5,9 +5,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import jreactive.ReactiveFunction;
-import jreactive.ReactiveProperty;
-import jreactive.Reactivity;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
@@ -28,7 +25,7 @@ public class SimpleTest {
 	Runnable mockedAction = spy(action);
 
 	@Test public void testReactiveProperty(){
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		property.set(2);
 		verify(mockedAction, times(1+1)).run(); // one for the watch, one for the set
 		property.set(3);
@@ -41,9 +38,9 @@ public class SimpleTest {
 	}
 
 	@Test public void testReactivePropertyWithMultipleWatcers(){
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run(); // one for the watch
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(2)).run(); // calling the watch twice, calls the function twice
 		property.set(2);
 		verify(mockedAction, times(2+1)).run(); // one for the watch, one for each set
@@ -61,7 +58,7 @@ public class SimpleTest {
 				String result = rp1.get() + " " + rp2.get();
 			}
 		});
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run(); // one for the watch
 		rp1.set("Goodbye");
 		verify(mockedAction, times(1+1)).run(); // one for the watch, one for each set
@@ -84,7 +81,7 @@ public class SimpleTest {
 		};
 
 		Runnable mockedAction = spy(runnable);
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run(); // one for the watch
 		rp1.set("Goodbye");
 		verify(mockedAction, times(1+1)).run(); // one for the watch, one for each set

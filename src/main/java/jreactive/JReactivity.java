@@ -1,6 +1,6 @@
 package jreactive;
 
-public class Reactivity {
+public class JReactivity {
 	private static Runnable target;
 
 	public static Runnable getTarget() {
@@ -8,8 +8,8 @@ public class Reactivity {
 	}
 
 	public static void setTarget(Runnable current) {
-		if(Reactivity.target != current)
-			Reactivity.target = current;
+		if(JReactivity.target != current)
+			JReactivity.target = current;
 	}
 
 	public static void watch(Runnable f) {

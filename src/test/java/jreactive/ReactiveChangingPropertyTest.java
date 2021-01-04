@@ -6,9 +6,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import jreactive.ReactiveChangingProperty;
-import jreactive.ReactiveProperty;
-import jreactive.Reactivity;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
@@ -29,7 +26,7 @@ public class ReactiveChangingPropertyTest {
 	@Test public void nullPropertyDoesNotFireOnSetNull() {
 		property = new ReactiveChangingProperty<>();//init with null
 		assertNull(property.get());
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run();
 		property.set(null);
 		assertNull(property.get());
@@ -39,7 +36,7 @@ public class ReactiveChangingPropertyTest {
 	@Test public void nullPropertyDoesFireOnSetNotNull() {
 		property = new ReactiveChangingProperty<>();//init with null
 		assertNull(property.get());
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run();
 		property.set("a");
 		assertEquals("a", property.get());
@@ -49,7 +46,7 @@ public class ReactiveChangingPropertyTest {
 	@Test public void notNullPropertyDoesFireOnSetNull() {
 		property = new ReactiveChangingProperty<>("a");//init with not null
 		assertEquals("a", property.get());
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run();
 		property.set(null);
 		assertNull(property.get());
@@ -59,7 +56,7 @@ public class ReactiveChangingPropertyTest {
 	@Test public void notNullPropertyDoesNotFireOnEqualSetNotNull() {
 		property = new ReactiveChangingProperty<>("a");//init with not null
 		assertEquals("a", property.get());
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run();
 		property.set("a");
 		assertEquals("a", property.get());
@@ -69,7 +66,7 @@ public class ReactiveChangingPropertyTest {
 	@Test public void notNullPropertyDoesFireOnDifferentSetNotNull() {
 		property = new ReactiveChangingProperty<>("a");//init with not null
 		assertEquals("a", property.get());
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run();
 		property.set("b");
 		assertEquals("b", property.get());

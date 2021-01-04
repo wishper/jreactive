@@ -5,9 +5,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.concurrent.Callable;
-import jreactive.ReactiveCallable;
-import jreactive.ReactiveProperty;
-import jreactive.Reactivity;
 import jreactive.util.Util;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,7 +29,7 @@ public class TestReactivity {
 
 	@Test
 	public void testReactivePojo() throws Exception {
-		Reactivity.watch(mockedAction);
+		JReactivity.watch(mockedAction);
 		verify(mockedAction, times(1)).run(); // one for the watch
 
 		ReactiveTestPojo mTP = new ReactiveTestPojo();
@@ -67,7 +64,7 @@ public class TestReactivity {
 		verify(mockedAction, times(1+9)).run(); // we set the pojo, so a new call is made
 
 		Callable<String> f = spy(new ReactiveCallable<>(()-> String.format("Ciao RF %s %s (%d)", getTestPojo().getName(), getTestPojo().getSurname(), getTestPojo().getAge())));
-		Reactivity.watch(()-> {
+		JReactivity.watch(()-> {
 			try {
 				f.call();
 			} catch (Exception e) {
